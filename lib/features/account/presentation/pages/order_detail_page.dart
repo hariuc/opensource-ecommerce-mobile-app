@@ -145,6 +145,23 @@ class OrderDetailPage extends StatelessWidget {
               const ClearOrderDetailMessage(),
             );
           }
+          // Handle cancel success
+          if (state.status == OrderDetailStatus.cancelSuccess &&
+              state.successMessage != null) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(state.successMessage!),
+                  backgroundColor: AppColors.successGreen,
+                  behavior: SnackBarBehavior.floating,
+                  duration: const Duration(seconds: 3),
+                ),
+              );
+            context.read<OrderDetailBloc>().add(
+              const ClearOrderDetailMessage(),
+            );
+          }
         },
         builder: (context, state) {
           if (state.status == OrderDetailStatus.loading) {
@@ -643,9 +660,88 @@ class _OrderDetailBodyState extends State<_OrderDetailBody> {
   // Figma: bg #FAFAFA, px-16 py-7, gap-16
   // Reorder: bg #FF6900, rounded-54, Bold 16, white text
   Widget _buildBottomBar(bool isDark) {
+    final l10n = AppLocalizations.of(context)!;
     // Use the orderId passed to the _OrderDetailBody widget
     final isReordering = context.select<OrderDetailBloc, bool>(
       (bloc) => bloc.state.status == OrderDetailStatus.reordering,
+    );
+    final isCanceling = context.select<OrderDetailBloc, bool>(
+      (bloc) => bloc.state.status == OrderDetailStatus.canceling,
+    );
+    final canCancel = context.select<OrderDetailBloc, bool>(
+      (bloc) => bloc.state.order?.canCancel ?? false,
+    );
+    final busy = isReordering || isCanceling;
+
+    final reorderButton = SizedBox(
+      height: 48,
+      child: ElevatedButton(
+        onPressed: busy
+            ? null
+            : () {
+                context.read<OrderDetailBloc>().add(ReorderOrder(widget.orderId));
+              },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary500,
+          foregroundColor: AppColors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(54),
+          ),
+        ),
+        child: isReordering
+            ? const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            : Text(
+                l10n.accountReorder,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+      ),
+    );
+
+    final cancelButton = SizedBox(
+      height: 48,
+      child: OutlinedButton(
+        onPressed: busy ? null : _confirmCancelOrder,
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.errorRed,
+          side: const BorderSide(color: AppColors.errorRed),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(54),
+          ),
+        ),
+        child: isCanceling
+            ? const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.errorRed),
+                ),
+              )
+            : Text(
+                l10n.accountCancelOrder,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15,
+                ),
+              ),
+      ),
     );
 
     return Container(
@@ -662,43 +758,83 @@ class _OrderDetailBodyState extends State<_OrderDetailBody> {
       ),
       child: SafeArea(
         top: false,
-        child: SizedBox(
-          height: 48,
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: isReordering
-                ? null
-                : () {
-                    context.read<OrderDetailBloc>().add(ReorderOrder(widget.orderId));
-                  },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary500,
-              foregroundColor: AppColors.white,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(54),
+        child: canCancel
+            ? Row(
+                children: [
+                  Expanded(child: cancelButton),
+                  const SizedBox(width: 12),
+                  Expanded(child: reorderButton),
+                ],
+              )
+            : SizedBox(width: double.infinity, child: reorderButton),
+      ),
+    );
+  }
+
+  /// Confirm dialog before canceling the order.
+  void _confirmCancelOrder() {
+    final l10n = AppLocalizations.of(context)!;
+    final bloc = context.read<OrderDetailBloc>();
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (dialogContext) {
+        final isDark = Theme.of(dialogContext).brightness == Brightness.dark;
+        return AlertDialog(
+          backgroundColor: isDark ? AppColors.neutral800 : AppColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Text(
+            l10n.accountCancelOrder,
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+              color: isDark ? AppColors.neutral200 : AppColors.neutral900,
+            ),
+          ),
+          content: Text(
+            l10n.accountCancelOrderConfirmation,
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+              color: isDark ? AppColors.neutral400 : AppColors.neutral500,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text(
+                l10n.cartCancel,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: isDark ? AppColors.neutral300 : AppColors.neutral600,
+                ),
               ),
             ),
-            child: isReordering
-                ? const SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  )
-                : Text(
-                    AppLocalizations.of(context)!.accountReorder,
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
-                  ),
-          ),
-        ),
-      ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+                bloc.add(CancelOrder(widget.orderId));
+              },
+              child: Text(
+                l10n.accountCancelOrder,
+                style: const TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                  color: AppColors.errorRed,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

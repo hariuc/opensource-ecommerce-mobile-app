@@ -1075,6 +1075,148 @@ class AppLocalizationsTr extends AppLocalizations {
   String get accountReturnRequest => 'İade Talebi';
 
   @override
+  String get accountMyReturns => 'İadelerim';
+
+  @override
+  String get accountReturns => 'İadeler';
+
+  @override
+  String get accountReturnSingular => 'İade';
+
+  @override
+  String get accountReturnPlural => 'İadeler';
+
+  @override
+  String get accountNoReturnsYet => 'Henüz iade yok';
+
+  @override
+  String get accountReturnsEmptyDescription =>
+      'İade talepleriniz burada görünecek.';
+
+  @override
+  String accountReturnWithNumber(Object number) {
+    return 'İade $number';
+  }
+
+  @override
+  String accountReturnOrderLabel(Object number) {
+    return 'Sipariş $number';
+  }
+
+  @override
+  String accountReturnQtyValue(int count) {
+    return 'Adet: $count';
+  }
+
+  @override
+  String accountReturnMaxQty(int count) {
+    return 'Maks.: $count';
+  }
+
+  @override
+  String get accountReturnResolution => 'Çözüm';
+
+  @override
+  String get accountReturnResolutionReturn => 'İade';
+
+  @override
+  String get accountReturnResolutionCancel => 'Ürünleri iptal et';
+
+  @override
+  String get accountReturnReason => 'Neden';
+
+  @override
+  String get accountReturnSelectReason => 'Bir neden seçin';
+
+  @override
+  String get accountReturnPackageCondition => 'Paket durumu';
+
+  @override
+  String get accountReturnPackageConditionHint =>
+      'örn. açılmış, kapalı, kutu hasarlı';
+
+  @override
+  String get accountReturnAdditionalInfo => 'Ek bilgi';
+
+  @override
+  String get accountReturnAdditionalInfoHint =>
+      'Sorunu açıklayın (isteğe bağlı)';
+
+  @override
+  String get accountReturnAgreement =>
+      'İade politikası şartlarını kabul ediyorum';
+
+  @override
+  String get accountReturnAgreementRequired =>
+      'Lütfen iade politikası şartlarını kabul edin';
+
+  @override
+  String get accountReturnSubmit => 'Talebi gönder';
+
+  @override
+  String get accountReturnCreatedTitle => 'Talep gönderildi';
+
+  @override
+  String get accountReturnCreatedMessage =>
+      'İade talebiniz başarıyla gönderildi.';
+
+  @override
+  String get accountReturnSelectItem => 'Ürün seçin';
+
+  @override
+  String get accountReturnNoReturnableItems => 'İade edilebilir ürün yok';
+
+  @override
+  String get accountReturnNoReturnableItemsDescription =>
+      'Bu siparişte iade veya iptal için uygun ürün bulunmuyor.';
+
+  @override
+  String get accountReturnCancelAction => 'Talebi iptal et';
+
+  @override
+  String get accountReturnCloseAction => 'Çözüldü olarak işaretle';
+
+  @override
+  String get accountReturnReopenAction => 'Talebi yeniden aç';
+
+  @override
+  String get accountReturnCancelConfirmation =>
+      'Bu iade talebini iptal etmek istediğinizden emin misiniz?';
+
+  @override
+  String get accountReturnCloseConfirmation =>
+      'Bu iade talebi çözüldü olarak işaretlensin mi?';
+
+  @override
+  String get accountReturnMessages => 'Mesajlar';
+
+  @override
+  String get accountReturnNoMessages => 'Henüz mesaj yok.';
+
+  @override
+  String get accountReturnMessageHint => 'Mesaj yazın…';
+
+  @override
+  String accountReturnStatusUpdated(Object status) {
+    return 'İade durumu $status olarak güncellendi';
+  }
+
+  @override
+  String get accountReturnExpired => 'İade süresi doldu';
+
+  @override
+  String get accountReturnInformation => 'Bilgi';
+
+  @override
+  String get accountReturnSelectOrder => 'Bir sipariş seçin';
+
+  @override
+  String get accountReturnChangeOrder => 'Değiştir';
+
+  @override
+  String get accountReturnChooseAnotherOrder => 'Başka bir sipariş seç';
+
+  @override
   String get accountNotifications => 'Bildirimler';
 
   @override
@@ -1467,6 +1609,13 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get accountReorder => 'Tekrar Sipariş Ver';
+
+  @override
+  String get accountCancelOrder => 'Siparişi İptal Et';
+
+  @override
+  String get accountCancelOrderConfirmation =>
+      'Bu siparişi iptal etmek istediğinizden emin misiniz? Bu işlem geri alınamaz.';
 
   @override
   String get accountMoreInfo => 'Daha fazla bilgi';

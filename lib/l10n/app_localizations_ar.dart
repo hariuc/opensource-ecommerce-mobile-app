@@ -1061,6 +1061,145 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountReturnRequest => 'طلب إرجاع';
 
   @override
+  String get accountMyReturns => 'مرتجعاتي';
+
+  @override
+  String get accountReturns => 'المرتجعات';
+
+  @override
+  String get accountReturnSingular => 'مرتجع';
+
+  @override
+  String get accountReturnPlural => 'مرتجعات';
+
+  @override
+  String get accountNoReturnsYet => 'لا توجد مرتجعات بعد';
+
+  @override
+  String get accountReturnsEmptyDescription =>
+      'ستظهر طلبات الإرجاع الخاصة بك هنا.';
+
+  @override
+  String accountReturnWithNumber(Object number) {
+    return 'مرتجع $number';
+  }
+
+  @override
+  String accountReturnOrderLabel(Object number) {
+    return 'الطلب $number';
+  }
+
+  @override
+  String accountReturnQtyValue(int count) {
+    return 'الكمية: $count';
+  }
+
+  @override
+  String accountReturnMaxQty(int count) {
+    return 'الحد الأقصى: $count';
+  }
+
+  @override
+  String get accountReturnResolution => 'الحل';
+
+  @override
+  String get accountReturnResolutionReturn => 'إرجاع';
+
+  @override
+  String get accountReturnResolutionCancel => 'إلغاء العناصر';
+
+  @override
+  String get accountReturnReason => 'السبب';
+
+  @override
+  String get accountReturnSelectReason => 'اختر سببًا';
+
+  @override
+  String get accountReturnPackageCondition => 'حالة العبوة';
+
+  @override
+  String get accountReturnPackageConditionHint =>
+      'مثال: مفتوحة، مغلقة، صندوق تالف';
+
+  @override
+  String get accountReturnAdditionalInfo => 'معلومات إضافية';
+
+  @override
+  String get accountReturnAdditionalInfoHint => 'صف المشكلة (اختياري)';
+
+  @override
+  String get accountReturnAgreement => 'أوافق على شروط سياسة الإرجاع';
+
+  @override
+  String get accountReturnAgreementRequired => 'يرجى قبول شروط سياسة الإرجاع';
+
+  @override
+  String get accountReturnSubmit => 'إرسال الطلب';
+
+  @override
+  String get accountReturnCreatedTitle => 'تم إرسال الطلب';
+
+  @override
+  String get accountReturnCreatedMessage =>
+      'تم إرسال طلب الإرجاع الخاص بك بنجاح.';
+
+  @override
+  String get accountReturnSelectItem => 'اختر عنصرًا';
+
+  @override
+  String get accountReturnNoReturnableItems => 'لا توجد عناصر قابلة للإرجاع';
+
+  @override
+  String get accountReturnNoReturnableItemsDescription =>
+      'لا يحتوي هذا الطلب على عناصر مؤهلة للإرجاع أو الإلغاء.';
+
+  @override
+  String get accountReturnCancelAction => 'إلغاء الطلب';
+
+  @override
+  String get accountReturnCloseAction => 'وضع علامة كمحلول';
+
+  @override
+  String get accountReturnReopenAction => 'إعادة فتح الطلب';
+
+  @override
+  String get accountReturnCancelConfirmation =>
+      'هل أنت متأكد أنك تريد إلغاء طلب الإرجاع هذا؟';
+
+  @override
+  String get accountReturnCloseConfirmation =>
+      'وضع علامة على طلب الإرجاع هذا كمحلول؟';
+
+  @override
+  String get accountReturnMessages => 'الرسائل';
+
+  @override
+  String get accountReturnNoMessages => 'لا توجد رسائل بعد.';
+
+  @override
+  String get accountReturnMessageHint => 'اكتب رسالة…';
+
+  @override
+  String accountReturnStatusUpdated(Object status) {
+    return 'تم تحديث حالة الإرجاع إلى $status';
+  }
+
+  @override
+  String get accountReturnExpired => 'انتهت فترة الإرجاع';
+
+  @override
+  String get accountReturnInformation => 'معلومات';
+
+  @override
+  String get accountReturnSelectOrder => 'اختر طلبًا';
+
+  @override
+  String get accountReturnChangeOrder => 'تغيير';
+
+  @override
+  String get accountReturnChooseAnotherOrder => 'اختر طلبًا آخر';
+
+  @override
   String get accountNotifications => 'الإشعارات';
 
   @override
@@ -1453,6 +1592,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get accountReorder => 'إعادة الطلب';
+
+  @override
+  String get accountCancelOrder => 'إلغاء الطلب';
+
+  @override
+  String get accountCancelOrderConfirmation =>
+      'هل أنت متأكد أنك تريد إلغاء هذا الطلب؟ لا يمكن التراجع عن هذا الإجراء.';
 
   @override
   String get accountMoreInfo => 'مزيد من المعلومات';

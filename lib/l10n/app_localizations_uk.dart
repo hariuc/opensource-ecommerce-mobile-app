@@ -1076,6 +1076,148 @@ class AppLocalizationsUk extends AppLocalizations {
   String get accountReturnRequest => 'Запит на повернення';
 
   @override
+  String get accountMyReturns => 'Мої повернення';
+
+  @override
+  String get accountReturns => 'Повернення';
+
+  @override
+  String get accountReturnSingular => 'Повернення';
+
+  @override
+  String get accountReturnPlural => 'Повернення';
+
+  @override
+  String get accountNoReturnsYet => 'Повернень поки немає';
+
+  @override
+  String get accountReturnsEmptyDescription =>
+      'Ваші запити на повернення з’являться тут.';
+
+  @override
+  String accountReturnWithNumber(Object number) {
+    return 'Повернення $number';
+  }
+
+  @override
+  String accountReturnOrderLabel(Object number) {
+    return 'Замовлення $number';
+  }
+
+  @override
+  String accountReturnQtyValue(int count) {
+    return 'К-сть: $count';
+  }
+
+  @override
+  String accountReturnMaxQty(int count) {
+    return 'Макс.: $count';
+  }
+
+  @override
+  String get accountReturnResolution => 'Рішення';
+
+  @override
+  String get accountReturnResolutionReturn => 'Повернення';
+
+  @override
+  String get accountReturnResolutionCancel => 'Скасувати товари';
+
+  @override
+  String get accountReturnReason => 'Причина';
+
+  @override
+  String get accountReturnSelectReason => 'Виберіть причину';
+
+  @override
+  String get accountReturnPackageCondition => 'Стан упаковки';
+
+  @override
+  String get accountReturnPackageConditionHint =>
+      'напр. відкрита, запечатана, коробка пошкоджена';
+
+  @override
+  String get accountReturnAdditionalInfo => 'Додаткова інформація';
+
+  @override
+  String get accountReturnAdditionalInfoHint =>
+      'Опишіть проблему (необов’язково)';
+
+  @override
+  String get accountReturnAgreement =>
+      'Я погоджуюся з умовами політики повернення';
+
+  @override
+  String get accountReturnAgreementRequired =>
+      'Будь ласка, прийміть умови політики повернення';
+
+  @override
+  String get accountReturnSubmit => 'Надіслати запит';
+
+  @override
+  String get accountReturnCreatedTitle => 'Запит надіслано';
+
+  @override
+  String get accountReturnCreatedMessage =>
+      'Ваш запит на повернення успішно надіслано.';
+
+  @override
+  String get accountReturnSelectItem => 'Виберіть товар';
+
+  @override
+  String get accountReturnNoReturnableItems => 'Немає товарів для повернення';
+
+  @override
+  String get accountReturnNoReturnableItemsDescription =>
+      'У цьому замовленні немає товарів, доступних для повернення чи скасування.';
+
+  @override
+  String get accountReturnCancelAction => 'Скасувати запит';
+
+  @override
+  String get accountReturnCloseAction => 'Позначити як вирішений';
+
+  @override
+  String get accountReturnReopenAction => 'Відкрити запит знову';
+
+  @override
+  String get accountReturnCancelConfirmation =>
+      'Ви впевнені, що хочете скасувати цей запит на повернення?';
+
+  @override
+  String get accountReturnCloseConfirmation =>
+      'Позначити цей запит на повернення як вирішений?';
+
+  @override
+  String get accountReturnMessages => 'Повідомлення';
+
+  @override
+  String get accountReturnNoMessages => 'Повідомлень поки немає.';
+
+  @override
+  String get accountReturnMessageHint => 'Напишіть повідомлення…';
+
+  @override
+  String accountReturnStatusUpdated(Object status) {
+    return 'Статус повернення оновлено: $status';
+  }
+
+  @override
+  String get accountReturnExpired => 'Термін повернення минув';
+
+  @override
+  String get accountReturnInformation => 'Інформація';
+
+  @override
+  String get accountReturnSelectOrder => 'Виберіть замовлення';
+
+  @override
+  String get accountReturnChangeOrder => 'Змінити';
+
+  @override
+  String get accountReturnChooseAnotherOrder => 'Вибрати інше замовлення';
+
+  @override
   String get accountNotifications => 'Сповіщення';
 
   @override
@@ -1471,6 +1613,13 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get accountReorder => 'Повторити замовлення';
+
+  @override
+  String get accountCancelOrder => 'Скасувати замовлення';
+
+  @override
+  String get accountCancelOrderConfirmation =>
+      'Ви впевнені, що хочете скасувати це замовлення? Цю дію не можна скасувати.';
 
   @override
   String get accountMoreInfo => 'Детальніше';

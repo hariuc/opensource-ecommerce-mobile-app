@@ -2064,6 +2064,252 @@ abstract class AppLocalizations {
   /// **'Return Request'**
   String get accountReturnRequest;
 
+  /// No description provided for @accountMyReturns.
+  ///
+  /// In en, this message translates to:
+  /// **'My Returns'**
+  String get accountMyReturns;
+
+  /// No description provided for @accountReturns.
+  ///
+  /// In en, this message translates to:
+  /// **'Returns'**
+  String get accountReturns;
+
+  /// No description provided for @accountReturnSingular.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get accountReturnSingular;
+
+  /// No description provided for @accountReturnPlural.
+  ///
+  /// In en, this message translates to:
+  /// **'Returns'**
+  String get accountReturnPlural;
+
+  /// No description provided for @accountNoReturnsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No Returns Yet'**
+  String get accountNoReturnsYet;
+
+  /// No description provided for @accountReturnsEmptyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your return requests will appear here.'**
+  String get accountReturnsEmptyDescription;
+
+  /// No description provided for @accountReturnWithNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Return {number}'**
+  String accountReturnWithNumber(Object number);
+
+  /// No description provided for @accountReturnOrderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Order {number}'**
+  String accountReturnOrderLabel(Object number);
+
+  /// No description provided for @accountReturnQtyValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Qty: {count}'**
+  String accountReturnQtyValue(int count);
+
+  /// No description provided for @accountReturnMaxQty.
+  ///
+  /// In en, this message translates to:
+  /// **'Max: {count}'**
+  String accountReturnMaxQty(int count);
+
+  /// No description provided for @accountReturnResolution.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution'**
+  String get accountReturnResolution;
+
+  /// No description provided for @accountReturnResolutionReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get accountReturnResolutionReturn;
+
+  /// No description provided for @accountReturnResolutionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Items'**
+  String get accountReturnResolutionCancel;
+
+  /// No description provided for @accountReturnReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get accountReturnReason;
+
+  /// No description provided for @accountReturnSelectReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a reason'**
+  String get accountReturnSelectReason;
+
+  /// No description provided for @accountReturnPackageCondition.
+  ///
+  /// In en, this message translates to:
+  /// **'Package Condition'**
+  String get accountReturnPackageCondition;
+
+  /// No description provided for @accountReturnPackageConditionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. opened, sealed, damaged box'**
+  String get accountReturnPackageConditionHint;
+
+  /// No description provided for @accountReturnAdditionalInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Information'**
+  String get accountReturnAdditionalInfo;
+
+  /// No description provided for @accountReturnAdditionalInfoHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe the issue (optional)'**
+  String get accountReturnAdditionalInfoHint;
+
+  /// No description provided for @accountReturnAgreement.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree with the return policy terms'**
+  String get accountReturnAgreement;
+
+  /// No description provided for @accountReturnAgreementRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please accept the return policy terms'**
+  String get accountReturnAgreementRequired;
+
+  /// No description provided for @accountReturnSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Request'**
+  String get accountReturnSubmit;
+
+  /// No description provided for @accountReturnCreatedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Submitted'**
+  String get accountReturnCreatedTitle;
+
+  /// No description provided for @accountReturnCreatedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your return request has been submitted successfully.'**
+  String get accountReturnCreatedMessage;
+
+  /// No description provided for @accountReturnSelectItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Item'**
+  String get accountReturnSelectItem;
+
+  /// No description provided for @accountReturnNoReturnableItems.
+  ///
+  /// In en, this message translates to:
+  /// **'No Returnable Items'**
+  String get accountReturnNoReturnableItems;
+
+  /// No description provided for @accountReturnNoReturnableItemsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This order has no items eligible for return or cancellation.'**
+  String get accountReturnNoReturnableItemsDescription;
+
+  /// No description provided for @accountReturnCancelAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Request'**
+  String get accountReturnCancelAction;
+
+  /// No description provided for @accountReturnCloseAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Solved'**
+  String get accountReturnCloseAction;
+
+  /// No description provided for @accountReturnReopenAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen Request'**
+  String get accountReturnReopenAction;
+
+  /// No description provided for @accountReturnCancelConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to cancel this return request?'**
+  String get accountReturnCancelConfirmation;
+
+  /// No description provided for @accountReturnCloseConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark this return request as solved?'**
+  String get accountReturnCloseConfirmation;
+
+  /// No description provided for @accountReturnMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get accountReturnMessages;
+
+  /// No description provided for @accountReturnNoMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet.'**
+  String get accountReturnNoMessages;
+
+  /// No description provided for @accountReturnMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a message…'**
+  String get accountReturnMessageHint;
+
+  /// No description provided for @accountReturnStatusUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Return status updated to {status}'**
+  String accountReturnStatusUpdated(Object status);
+
+  /// No description provided for @accountReturnExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Return window expired'**
+  String get accountReturnExpired;
+
+  /// No description provided for @accountReturnInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get accountReturnInformation;
+
+  /// No description provided for @accountReturnSelectOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an order'**
+  String get accountReturnSelectOrder;
+
+  /// No description provided for @accountReturnChangeOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get accountReturnChangeOrder;
+
+  /// No description provided for @accountReturnChooseAnotherOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another order'**
+  String get accountReturnChooseAnotherOrder;
+
   /// No description provided for @accountNotifications.
   ///
   /// In en, this message translates to:
@@ -2807,6 +3053,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reorder'**
   String get accountReorder;
+
+  /// No description provided for @accountCancelOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Order'**
+  String get accountCancelOrder;
+
+  /// No description provided for @accountCancelOrderConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to cancel this order? This cannot be undone.'**
+  String get accountCancelOrderConfirmation;
 
   /// No description provided for @accountMoreInfo.
   ///

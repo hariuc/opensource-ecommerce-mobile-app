@@ -1086,6 +1086,148 @@ class AppLocalizationsIt extends AppLocalizations {
   String get accountReturnRequest => 'Richiesta di reso';
 
   @override
+  String get accountMyReturns => 'I miei resi';
+
+  @override
+  String get accountReturns => 'Resi';
+
+  @override
+  String get accountReturnSingular => 'Reso';
+
+  @override
+  String get accountReturnPlural => 'Resi';
+
+  @override
+  String get accountNoReturnsYet => 'Ancora nessun reso';
+
+  @override
+  String get accountReturnsEmptyDescription =>
+      'Le tue richieste di reso appariranno qui.';
+
+  @override
+  String accountReturnWithNumber(Object number) {
+    return 'Reso $number';
+  }
+
+  @override
+  String accountReturnOrderLabel(Object number) {
+    return 'Ordine $number';
+  }
+
+  @override
+  String accountReturnQtyValue(int count) {
+    return 'Qtà: $count';
+  }
+
+  @override
+  String accountReturnMaxQty(int count) {
+    return 'Max: $count';
+  }
+
+  @override
+  String get accountReturnResolution => 'Risoluzione';
+
+  @override
+  String get accountReturnResolutionReturn => 'Reso';
+
+  @override
+  String get accountReturnResolutionCancel => 'Annulla articoli';
+
+  @override
+  String get accountReturnReason => 'Motivo';
+
+  @override
+  String get accountReturnSelectReason => 'Seleziona un motivo';
+
+  @override
+  String get accountReturnPackageCondition => 'Condizione della confezione';
+
+  @override
+  String get accountReturnPackageConditionHint =>
+      'es. aperta, sigillata, scatola danneggiata';
+
+  @override
+  String get accountReturnAdditionalInfo => 'Informazioni aggiuntive';
+
+  @override
+  String get accountReturnAdditionalInfoHint =>
+      'Descrivi il problema (facoltativo)';
+
+  @override
+  String get accountReturnAgreement =>
+      'Accetto i termini della politica di reso';
+
+  @override
+  String get accountReturnAgreementRequired =>
+      'Accetta la politica di reso per continuare';
+
+  @override
+  String get accountReturnSubmit => 'Invia richiesta';
+
+  @override
+  String get accountReturnCreatedTitle => 'Richiesta inviata';
+
+  @override
+  String get accountReturnCreatedMessage =>
+      'La tua richiesta di reso è stata inviata con successo.';
+
+  @override
+  String get accountReturnSelectItem => 'Seleziona articolo';
+
+  @override
+  String get accountReturnNoReturnableItems => 'Nessun articolo restituibile';
+
+  @override
+  String get accountReturnNoReturnableItemsDescription =>
+      'Questo ordine non contiene articoli idonei al reso o all\'annullamento.';
+
+  @override
+  String get accountReturnCancelAction => 'Annulla richiesta';
+
+  @override
+  String get accountReturnCloseAction => 'Segna come risolto';
+
+  @override
+  String get accountReturnReopenAction => 'Riapri richiesta';
+
+  @override
+  String get accountReturnCancelConfirmation =>
+      'Vuoi davvero annullare questa richiesta di reso?';
+
+  @override
+  String get accountReturnCloseConfirmation =>
+      'Segnare questa richiesta di reso come risolta?';
+
+  @override
+  String get accountReturnMessages => 'Messaggi';
+
+  @override
+  String get accountReturnNoMessages => 'Ancora nessun messaggio.';
+
+  @override
+  String get accountReturnMessageHint => 'Scrivi un messaggio…';
+
+  @override
+  String accountReturnStatusUpdated(Object status) {
+    return 'Stato del reso aggiornato a $status';
+  }
+
+  @override
+  String get accountReturnExpired => 'Periodo di reso scaduto';
+
+  @override
+  String get accountReturnInformation => 'Informazioni';
+
+  @override
+  String get accountReturnSelectOrder => 'Seleziona un ordine';
+
+  @override
+  String get accountReturnChangeOrder => 'Cambia';
+
+  @override
+  String get accountReturnChooseAnotherOrder => 'Scegli un altro ordine';
+
+  @override
   String get accountNotifications => 'Notifiche';
 
   @override
@@ -1482,6 +1624,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get accountReorder => 'Riordina';
+
+  @override
+  String get accountCancelOrder => 'Annulla ordine';
+
+  @override
+  String get accountCancelOrderConfirmation =>
+      'Vuoi davvero annullare questo ordine? L\'operazione non può essere annullata.';
 
   @override
   String get accountMoreInfo => 'Maggiori info';

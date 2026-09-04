@@ -63,6 +63,15 @@ class ReorderOrder extends OrderDetailEvent {
   List<Object?> get props => [orderId];
 }
 
+/// Cancel an existing order.
+class CancelOrder extends OrderDetailEvent {
+  final int orderId;
+  const CancelOrder(this.orderId);
+
+  @override
+  List<Object?> get props => [orderId];
+}
+
 // ─── STATE ───
 
 enum OrderDetailStatus {
@@ -72,6 +81,8 @@ enum OrderDetailStatus {
   error,
   reordering,
   reorderSuccess,
+  canceling,
+  cancelSuccess,
 }
 
 class OrderDetailState extends Equatable {
@@ -154,6 +165,7 @@ class OrderDetailBloc extends Bloc<OrderDetailEvent, OrderDetailState> {
     on<LoadShipmentDetail>(_onLoadShipmentDetail);
     on<ClearOrderDetailMessage>(_onClearMessage);
     on<ReorderOrder>(_onReorder);
+    on<CancelOrder>(_onCancel);
   }
 
   /// Get the repository instance
@@ -277,6 +289,52 @@ class OrderDetailBloc extends Bloc<OrderDetailEvent, OrderDetailState> {
         state.copyWith(
           status: OrderDetailStatus.error,
           errorMessage: e is AccountException ? e.message : 'Failed to reorder',
+        ),
+      );
+    }
+  }
+
+  Future<void> _onCancel(
+    CancelOrder event,
+    Emitter<OrderDetailState> emit,
+  ) async {
+    emit(state.copyWith(status: OrderDetailStatus.canceling));
+
+    try {
+      final result = await repository.cancelOrder(orderId: event.orderId);
+
+      if (result.success) {
+        // Re-fetch the order so the UI reflects the new (canceled) status.
+        OrderDetail? refreshed;
+        try {
+          refreshed = await repository.getCustomerOrder(event.orderId);
+        } catch (_) {
+          // Cancellation succeeded; keep the existing order on refresh failure.
+        }
+
+        emit(
+          state.copyWith(
+            status: OrderDetailStatus.cancelSuccess,
+            order: refreshed ?? state.order,
+            successMessage: result.message,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            status: OrderDetailStatus.error,
+            errorMessage: result.message,
+          ),
+        );
+      }
+    } catch (e) {
+      debugPrint('❌ OrderDetailBloc._onCancel error: $e');
+      emit(
+        state.copyWith(
+          status: OrderDetailStatus.error,
+          errorMessage: e is AccountException
+              ? e.message
+              : 'Failed to cancel order',
         ),
       );
     }

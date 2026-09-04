@@ -26,6 +26,7 @@ class AppColors {
   static const Color success50 = Color(0xFFF0FDF4);
   static const Color success500 = Color(0xFF00C950);
   static const Color success700 = Color(0xFF008236);
+  static const Color errorRed = Color(0xFFFB2C36);
 
   // Process / Info
   static const Color process600 = Color(0xFF155DFC);

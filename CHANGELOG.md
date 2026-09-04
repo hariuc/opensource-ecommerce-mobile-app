@@ -1,5 +1,16 @@
 #### This changelog consists the bug & security fixes and new features being included in the releases listed below
 
+# CHANGELOG for v2.4.8
+
+## **v2.4.8 (4th of September, 2026)** - *Release*
+
+* [Enhancement] Added RMA (returns) support: customers can view their return requests, open a request detail with status, item information, attachments, and a two-way message thread with the store, and cancel, reopen, or mark a return as solved.
+* [Enhancement] Added a "Create Request" flow for returns that starts by selecting an order, then choosing the item, resolution (return or cancel items), quantity, reason, package condition, and additional information before submitting.
+* [Enhancement] Added order cancellation from the order detail screen for orders that are still pending or processing, with a confirmation prompt and live status update after cancelling.
+* [Fixed] Fixed adding and editing account addresses by removing the `useForShipping` field that the API no longer returns, which was causing the save to fail.
+* [Fixed] Fixed placing an order at checkout by removing the `orderIncrementId` field that the API no longer returns for the create-order response.
+* [Known Limitation] Return image uploads and message attachments are not supported yet because the Bagisto GraphQL API handles file uploads only over REST. Once GraphQL support is available, these will be implemented as well.
+
 # CHANGELOG for v2.4.7
 
 ## **v2.4.7 (14th of August, 2026)** - *Release*

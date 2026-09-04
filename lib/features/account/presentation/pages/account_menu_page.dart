@@ -12,6 +12,7 @@ import '../bloc/compare_bloc.dart';
 import '../bloc/downloadable_products_bloc.dart';
 import '../bloc/edit_account_bloc.dart';
 import '../bloc/orders_bloc.dart';
+import '../bloc/returns_bloc.dart';
 import '../bloc/review_bloc.dart';
 import '../bloc/wishlist_bloc.dart';
 import '../helpers/account_dashboard_helpers.dart';
@@ -21,6 +22,7 @@ import '../pages/downloadable_products_page.dart';
 import '../pages/edit_account_page.dart';
 import '../pages/orders_page.dart';
 import '../pages/preferences_bottom_sheet.dart';
+import '../pages/returns_page.dart';
 import '../pages/reviews_page.dart';
 import '../pages/settings_bottom_sheet.dart';
 import '../pages/wishlist_page.dart';
@@ -264,6 +266,12 @@ class _AccountMenuBody extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           AccountMenuItem(
+            label: l10n.accountMyReturns,
+            trailingIcon: Icons.chevron_right,
+            onTap: () => _onMenuItemTap(context, AccountMenuAction.returns),
+          ),
+          const SizedBox(height: 2),
+          AccountMenuItem(
             label: l10n.accountMyDownloadableProducts,
             trailingIcon: Icons.chevron_right,
             onTap: () =>
@@ -327,6 +335,21 @@ class _AccountMenuBody extends StatelessWidget {
                 create: (_) =>
                     OrdersBloc(repository: repository)..add(const LoadOrders()),
                 child: const OrdersPage(),
+              ),
+            ),
+          ),
+        );
+        break;
+      case AccountMenuAction.returns:
+        final repository = context.read<AccountRepository>();
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => RepositoryProvider.value(
+              value: repository,
+              child: BlocProvider(
+                create: (_) => ReturnsBloc(repository: repository)
+                  ..add(const LoadReturns()),
+                child: const ReturnsPage(),
               ),
             ),
           ),
@@ -562,6 +585,7 @@ class _AccountMenuBody extends StatelessWidget {
 /// Enum for account menu actions
 enum AccountMenuAction {
   myOrders,
+  returns,
   downloadableProducts,
   wishlist,
   compareProducts,

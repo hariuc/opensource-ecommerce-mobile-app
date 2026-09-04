@@ -1068,6 +1068,146 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountReturnRequest => 'Return Request';
 
   @override
+  String get accountMyReturns => 'My Returns';
+
+  @override
+  String get accountReturns => 'Returns';
+
+  @override
+  String get accountReturnSingular => 'Return';
+
+  @override
+  String get accountReturnPlural => 'Returns';
+
+  @override
+  String get accountNoReturnsYet => 'No Returns Yet';
+
+  @override
+  String get accountReturnsEmptyDescription =>
+      'Your return requests will appear here.';
+
+  @override
+  String accountReturnWithNumber(Object number) {
+    return 'Return $number';
+  }
+
+  @override
+  String accountReturnOrderLabel(Object number) {
+    return 'Order $number';
+  }
+
+  @override
+  String accountReturnQtyValue(int count) {
+    return 'Qty: $count';
+  }
+
+  @override
+  String accountReturnMaxQty(int count) {
+    return 'Max: $count';
+  }
+
+  @override
+  String get accountReturnResolution => 'Resolution';
+
+  @override
+  String get accountReturnResolutionReturn => 'Return';
+
+  @override
+  String get accountReturnResolutionCancel => 'Cancel Items';
+
+  @override
+  String get accountReturnReason => 'Reason';
+
+  @override
+  String get accountReturnSelectReason => 'Select a reason';
+
+  @override
+  String get accountReturnPackageCondition => 'Package Condition';
+
+  @override
+  String get accountReturnPackageConditionHint =>
+      'e.g. opened, sealed, damaged box';
+
+  @override
+  String get accountReturnAdditionalInfo => 'Additional Information';
+
+  @override
+  String get accountReturnAdditionalInfoHint => 'Describe the issue (optional)';
+
+  @override
+  String get accountReturnAgreement => 'I agree with the return policy terms';
+
+  @override
+  String get accountReturnAgreementRequired =>
+      'Please accept the return policy terms';
+
+  @override
+  String get accountReturnSubmit => 'Submit Request';
+
+  @override
+  String get accountReturnCreatedTitle => 'Request Submitted';
+
+  @override
+  String get accountReturnCreatedMessage =>
+      'Your return request has been submitted successfully.';
+
+  @override
+  String get accountReturnSelectItem => 'Select Item';
+
+  @override
+  String get accountReturnNoReturnableItems => 'No Returnable Items';
+
+  @override
+  String get accountReturnNoReturnableItemsDescription =>
+      'This order has no items eligible for return or cancellation.';
+
+  @override
+  String get accountReturnCancelAction => 'Cancel Request';
+
+  @override
+  String get accountReturnCloseAction => 'Mark as Solved';
+
+  @override
+  String get accountReturnReopenAction => 'Reopen Request';
+
+  @override
+  String get accountReturnCancelConfirmation =>
+      'Are you sure you want to cancel this return request?';
+
+  @override
+  String get accountReturnCloseConfirmation =>
+      'Mark this return request as solved?';
+
+  @override
+  String get accountReturnMessages => 'Messages';
+
+  @override
+  String get accountReturnNoMessages => 'No messages yet.';
+
+  @override
+  String get accountReturnMessageHint => 'Write a message…';
+
+  @override
+  String accountReturnStatusUpdated(Object status) {
+    return 'Return status updated to $status';
+  }
+
+  @override
+  String get accountReturnExpired => 'Return window expired';
+
+  @override
+  String get accountReturnInformation => 'Information';
+
+  @override
+  String get accountReturnSelectOrder => 'Select an order';
+
+  @override
+  String get accountReturnChangeOrder => 'Change';
+
+  @override
+  String get accountReturnChooseAnotherOrder => 'Choose another order';
+
+  @override
   String get accountNotifications => 'Notifications';
 
   @override
@@ -1460,6 +1600,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountReorder => 'Reorder';
+
+  @override
+  String get accountCancelOrder => 'Cancel Order';
+
+  @override
+  String get accountCancelOrderConfirmation =>
+      'Are you sure you want to cancel this order? This cannot be undone.';
 
   @override
   String get accountMoreInfo => 'More info';

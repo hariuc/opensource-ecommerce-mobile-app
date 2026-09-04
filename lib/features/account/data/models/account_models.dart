@@ -1918,6 +1918,19 @@ class OrderDetail {
     this.shipments = const [],
   });
 
+  /// Whether this order can still be canceled by the customer.
+  /// Bagisto allows cancellation while the order is pending or processing.
+  bool get canCancel {
+    switch (status.toLowerCase()) {
+      case 'pending':
+      case 'pending_payment':
+      case 'processing':
+        return true;
+      default:
+        return false;
+    }
+  }
+
   factory OrderDetail.fromJson(Map<String, dynamic> json) {
     // Parse grand total
     double total = 0;

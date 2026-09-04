@@ -160,14 +160,17 @@ class CheckoutMutations {
     }
   ''';
 
-  /// Place order
+  /// Place order.
+  /// Note: `createCheckoutOrderPayloadData` no longer exposes
+  /// `orderIncrementId` — selecting it fails validation (verified against the
+  /// live schema), so it is omitted. The thank-you screen falls back to
+  /// `orderId` for the displayed order number.
   static const String createCheckoutOrder = r'''
     mutation createCheckoutOrder {
       createCheckoutOrder(input: {}) {
         checkoutOrder {
           id
           orderId
-          orderIncrementId
           success
           message
         }

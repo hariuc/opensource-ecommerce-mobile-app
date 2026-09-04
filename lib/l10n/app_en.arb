@@ -452,6 +452,76 @@
   "accountTrackOrder": "Track Order",
   "accountReturnPolicy": "Return Policy",
   "accountReturnRequest": "Return Request",
+  "accountMyReturns": "My Returns",
+  "accountReturns": "Returns",
+  "accountReturnSingular": "Return",
+  "accountReturnPlural": "Returns",
+  "accountNoReturnsYet": "No Returns Yet",
+  "accountReturnsEmptyDescription": "Your return requests will appear here.",
+  "accountReturnWithNumber": "Return {number}",
+  "@accountReturnWithNumber": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "accountReturnOrderLabel": "Order {number}",
+  "@accountReturnOrderLabel": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "accountReturnQtyValue": "Qty: {count}",
+  "@accountReturnQtyValue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "accountReturnMaxQty": "Max: {count}",
+  "@accountReturnMaxQty": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "accountReturnResolution": "Resolution",
+  "accountReturnResolutionReturn": "Return",
+  "accountReturnResolutionCancel": "Cancel Items",
+  "accountReturnReason": "Reason",
+  "accountReturnSelectReason": "Select a reason",
+  "accountReturnPackageCondition": "Package Condition",
+  "accountReturnPackageConditionHint": "e.g. opened, sealed, damaged box",
+  "accountReturnAdditionalInfo": "Additional Information",
+  "accountReturnAdditionalInfoHint": "Describe the issue (optional)",
+  "accountReturnAgreement": "I agree with the return policy terms",
+  "accountReturnAgreementRequired": "Please accept the return policy terms",
+  "accountReturnSubmit": "Submit Request",
+  "accountReturnCreatedTitle": "Request Submitted",
+  "accountReturnCreatedMessage": "Your return request has been submitted successfully.",
+  "accountReturnSelectItem": "Select Item",
+  "accountReturnNoReturnableItems": "No Returnable Items",
+  "accountReturnNoReturnableItemsDescription": "This order has no items eligible for return or cancellation.",
+  "accountReturnCancelAction": "Cancel Request",
+  "accountReturnCloseAction": "Mark as Solved",
+  "accountReturnReopenAction": "Reopen Request",
+  "accountReturnCancelConfirmation": "Are you sure you want to cancel this return request?",
+  "accountReturnCloseConfirmation": "Mark this return request as solved?",
+  "accountReturnMessages": "Messages",
+  "accountReturnNoMessages": "No messages yet.",
+  "accountReturnMessageHint": "Write a message…",
+  "accountReturnStatusUpdated": "Return status updated to {status}",
+  "@accountReturnStatusUpdated": {
+    "placeholders": {
+      "status": {}
+    }
+  },
+  "accountReturnExpired": "Return window expired",
+  "accountReturnInformation": "Information",
+  "accountReturnSelectOrder": "Select an order",
+  "accountReturnChangeOrder": "Change",
+  "accountReturnChooseAnotherOrder": "Choose another order",
   "accountNotifications": "Notifications",
   "accountPrivacy": "Privacy",
   "accountAccount": "Account",
@@ -623,6 +693,8 @@
   },
   "accountNoShipmentsForOrder": "No shipments for this order",
   "accountReorder": "Reorder",
+  "accountCancelOrder": "Cancel Order",
+  "accountCancelOrderConfirmation": "Are you sure you want to cancel this order? This cannot be undone.",
   "accountMoreInfo": "More info",
   "accountOrderedQty": "Ordered Qty",
   "accountShipped": "Shipped",

@@ -167,7 +167,6 @@ class AccountQueries {
           state
           city
           postcode
-          useForShipping
           defaultAddress
         }
       }
@@ -191,9 +190,13 @@ class AccountQueries {
   ///   mutation: createAddUpdateCustomerAddress
   ///   input type: createAddUpdateCustomerAddressInput
   ///   Fields: addressId (Int, optional — omit for create),
-  ///           firstName, lastName, email, phone, address1, address2,
-  ///           country, state, city, postcode,
-  ///           useForShipping (Boolean), defaultAddress (Boolean)
+  ///           firstName, lastName, companyName, vatId, email, phone,
+  ///           address1, address2, country, state, city, postcode,
+  ///           defaultAddress (Boolean)
+  ///   Note: the input has NO `useForShipping`, and the payload type
+  ///   `createAddUpdateCustomerAddressPayloadData` does NOT expose
+  ///   `useForShipping` — selecting it fails validation, so it is omitted
+  ///   from the mutation response below (verified against the live schema).
   static const String createAddUpdateCustomerAddress = r'''
     mutation createAddUpdateCustomerAddress($input: createAddUpdateCustomerAddressInput!) {
       createAddUpdateCustomerAddress(input: $input) {
@@ -210,7 +213,6 @@ class AccountQueries {
           state
           city
           postcode
-          useForShipping
           defaultAddress
         }
       }
@@ -849,6 +851,25 @@ mutation createReorderOrder($input: createReorderOrderInput!) {
   }
 }
 ''';
+
+  /// Cancel an existing order.
+  /// Bagisto API mutation: createCancelOrder(input: createCancelOrderInput!)
+  /// Required: orderId (Int)
+  /// Returns: success, message, orderId, status
+  /// (verified against the live schema; docs list the input type as
+  /// `CancelOrderInput` but the schema uses `createCancelOrderInput`).
+  static const String cancelOrder = r'''
+    mutation createCancelOrder($input: createCancelOrderInput!) {
+      createCancelOrder(input: $input) {
+        cancelOrder {
+          success
+          message
+          orderId
+          status
+        }
+      }
+    }
+  ''';
 
   // ──────────────────────────────────────────────
   // Customer Shipments

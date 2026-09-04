@@ -1078,6 +1078,148 @@ class AppLocalizationsNl extends AppLocalizations {
   String get accountReturnRequest => 'Retouraanvraag';
 
   @override
+  String get accountMyReturns => 'Mijn retouren';
+
+  @override
+  String get accountReturns => 'Retouren';
+
+  @override
+  String get accountReturnSingular => 'Retour';
+
+  @override
+  String get accountReturnPlural => 'Retouren';
+
+  @override
+  String get accountNoReturnsYet => 'Nog geen retouren';
+
+  @override
+  String get accountReturnsEmptyDescription =>
+      'Je retouraanvragen verschijnen hier.';
+
+  @override
+  String accountReturnWithNumber(Object number) {
+    return 'Retour $number';
+  }
+
+  @override
+  String accountReturnOrderLabel(Object number) {
+    return 'Bestelling $number';
+  }
+
+  @override
+  String accountReturnQtyValue(int count) {
+    return 'Aantal: $count';
+  }
+
+  @override
+  String accountReturnMaxQty(int count) {
+    return 'Max: $count';
+  }
+
+  @override
+  String get accountReturnResolution => 'Oplossing';
+
+  @override
+  String get accountReturnResolutionReturn => 'Retourneren';
+
+  @override
+  String get accountReturnResolutionCancel => 'Artikelen annuleren';
+
+  @override
+  String get accountReturnReason => 'Reden';
+
+  @override
+  String get accountReturnSelectReason => 'Selecteer een reden';
+
+  @override
+  String get accountReturnPackageCondition => 'Staat van de verpakking';
+
+  @override
+  String get accountReturnPackageConditionHint =>
+      'bijv. geopend, verzegeld, doos beschadigd';
+
+  @override
+  String get accountReturnAdditionalInfo => 'Aanvullende informatie';
+
+  @override
+  String get accountReturnAdditionalInfoHint =>
+      'Beschrijf het probleem (optioneel)';
+
+  @override
+  String get accountReturnAgreement =>
+      'Ik ga akkoord met de voorwaarden van het retourbeleid';
+
+  @override
+  String get accountReturnAgreementRequired =>
+      'Accepteer het retourbeleid om door te gaan';
+
+  @override
+  String get accountReturnSubmit => 'Aanvraag versturen';
+
+  @override
+  String get accountReturnCreatedTitle => 'Aanvraag verstuurd';
+
+  @override
+  String get accountReturnCreatedMessage =>
+      'Je retouraanvraag is succesvol verstuurd.';
+
+  @override
+  String get accountReturnSelectItem => 'Selecteer artikel';
+
+  @override
+  String get accountReturnNoReturnableItems => 'Geen retourneerbare artikelen';
+
+  @override
+  String get accountReturnNoReturnableItemsDescription =>
+      'Deze bestelling bevat geen artikelen die in aanmerking komen voor retour of annulering.';
+
+  @override
+  String get accountReturnCancelAction => 'Aanvraag annuleren';
+
+  @override
+  String get accountReturnCloseAction => 'Markeren als opgelost';
+
+  @override
+  String get accountReturnReopenAction => 'Aanvraag heropenen';
+
+  @override
+  String get accountReturnCancelConfirmation =>
+      'Weet je zeker dat je deze retouraanvraag wilt annuleren?';
+
+  @override
+  String get accountReturnCloseConfirmation =>
+      'Deze retouraanvraag als opgelost markeren?';
+
+  @override
+  String get accountReturnMessages => 'Berichten';
+
+  @override
+  String get accountReturnNoMessages => 'Nog geen berichten.';
+
+  @override
+  String get accountReturnMessageHint => 'Schrijf een bericht…';
+
+  @override
+  String accountReturnStatusUpdated(Object status) {
+    return 'Retourstatus bijgewerkt naar $status';
+  }
+
+  @override
+  String get accountReturnExpired => 'Retourperiode verlopen';
+
+  @override
+  String get accountReturnInformation => 'Informatie';
+
+  @override
+  String get accountReturnSelectOrder => 'Selecteer een bestelling';
+
+  @override
+  String get accountReturnChangeOrder => 'Wijzigen';
+
+  @override
+  String get accountReturnChooseAnotherOrder => 'Kies een andere bestelling';
+
+  @override
   String get accountNotifications => 'Meldingen';
 
   @override
@@ -1473,6 +1615,13 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get accountReorder => 'Opnieuw bestellen';
+
+  @override
+  String get accountCancelOrder => 'Bestelling annuleren';
+
+  @override
+  String get accountCancelOrderConfirmation =>
+      'Weet je zeker dat je deze bestelling wilt annuleren? Dit kan niet ongedaan worden gemaakt.';
 
   @override
   String get accountMoreInfo => 'Meer info';

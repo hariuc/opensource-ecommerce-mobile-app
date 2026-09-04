@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../../../core/error/error_mapper.dart';
 import '../../../../core/graphql/account_queries.dart';
+import '../../../../core/graphql/returns_queries.dart';
 import '../models/account_models.dart';
+import '../models/returns_models.dart';
 
 void _logAccountApiMessage(String message) {
   debugPrint(message);
@@ -1344,6 +1346,49 @@ class AccountRepository {
     );
   }
 
+  /// Cancel an existing order.
+  /// [orderId] is the numeric order ID.
+  /// Returns a record with success status, message, orderId, and new status.
+  Future<({bool success, String message, int orderId, String status})>
+  cancelOrder({required int orderId}) async {
+    debugPrint('🚫 AccountRepo.cancelOrder (orderId=$orderId)');
+
+    final result = await client.mutate(
+      MutationOptions(
+        document: gql(AccountQueries.cancelOrder),
+        variables: {
+          'input': {'orderId': orderId},
+        },
+      ),
+    );
+
+    if (result.hasException) {
+      final message = _extractErrorMessage(result.exception!);
+      debugPrint('🚫 AccountRepo.cancelOrder — error: $message');
+      throw AccountException(message);
+    }
+
+    final data = result.data?['createCancelOrder']?['cancelOrder'];
+    if (data == null) {
+      throw const AccountException('Failed to cancel order');
+    }
+
+    final success = data['success'] as bool? ?? false;
+    final message = data['message'] as String? ?? '';
+    final canceledOrderId = data['orderId'] as int? ?? orderId;
+    final status = data['status']?.toString() ?? '';
+
+    debugPrint(
+      '🚫 AccountRepo.cancelOrder — success: $success, message: $message, status: $status',
+    );
+    return (
+      success: success,
+      message: message,
+      orderId: canceledOrderId,
+      status: status,
+    );
+  }
+
   /// Fetch customer downloadable products (cursor-paginated)
   /// Returns downloadable products associated with customer's orders
   Future<
@@ -1407,6 +1452,319 @@ class AccountRepository {
       hasNextPage: hasNextPage,
       endCursor: endCursor,
     );
+  }
+
+  // ─── Returns (RMA) ───
+
+  /// Fetch customer return requests with cursor-based pagination.
+  Future<
+    ({
+      List<CustomerReturn> returns,
+      int totalCount,
+      bool hasNextPage,
+      String? endCursor,
+    })
+  >
+  getCustomerReturns({int first = 20, String? after, int? status}) async {
+    debugPrint('↩️ AccountRepo.getCustomerReturns (first=$first, status=$status)');
+
+    final variables = <String, dynamic>{'first': first};
+    if (after != null) variables['after'] = after;
+    if (status != null) variables['status'] = status;
+
+    final result = await client.query(
+      QueryOptions(
+        document: gql(ReturnsQueries.getCustomerReturns),
+        variables: variables,
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      final message = _extractErrorMessage(result.exception!);
+      debugPrint('↩️ AccountRepo.getCustomerReturns — error: $message');
+      throw AccountException(message);
+    }
+
+    final data = result.data?['customerReturns'];
+    if (data == null) {
+      return (
+        returns: const <CustomerReturn>[],
+        totalCount: 0,
+        hasNextPage: false,
+        endCursor: null,
+      );
+    }
+
+    final edges = data['edges'] as List<dynamic>? ?? [];
+    final returns = edges
+        .map((e) => CustomerReturn.fromJson(e['node'] as Map<String, dynamic>))
+        .toList();
+    final totalCount = data['totalCount'] as int? ?? returns.length;
+    final pageInfo = data['pageInfo'] as Map<String, dynamic>?;
+    final hasNextPage = pageInfo?['hasNextPage'] as bool? ?? false;
+    final endCursor = pageInfo?['endCursor']?.toString();
+
+    debugPrint(
+      '↩️ AccountRepo.getCustomerReturns — ${returns.length} returns (total: $totalCount, hasNext: $hasNextPage)',
+    );
+    return (
+      returns: returns,
+      totalCount: totalCount,
+      hasNextPage: hasNextPage,
+      endCursor: endCursor,
+    );
+  }
+
+  /// Fetch a single return detail by numeric ID.
+  /// The Bagisto API expects an IRI ID: `/api/shop/returns/{numericId}`
+  Future<CustomerReturn> getCustomerReturn(int returnId) async {
+    debugPrint('↩️ AccountRepo.getCustomerReturn (id=$returnId)');
+
+    final iriId = '/api/shop/returns/$returnId';
+
+    final result = await client.query(
+      QueryOptions(
+        document: gql(ReturnsQueries.getCustomerReturn),
+        variables: {'id': iriId},
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+
+    if (result.hasException) {
+      final message = _extractErrorMessage(result.exception!);
+      debugPrint('↩️ AccountRepo.getCustomerReturn — error: $message');
+      throw AccountException(message);
+    }
+
+    final data = result.data?['customerReturn'];
+    if (data == null) {
+      throw const AccountException('Return not found');
+    }
+
+    debugPrint('↩️ AccountRepo.getCustomerReturn — success');
+    return CustomerReturn.fromJson(data as Map<String, dynamic>);
+  }
+
+  /// Fetch order items still eligible for return/cancellation.
+  Future<List<ReturnableItem>> getReturnableItems(int orderId) async {
+    debugPrint('↩️ AccountRepo.getReturnableItems (orderId=$orderId)');
+
+    final result = await client.query(
+      QueryOptions(
+        document: gql(ReturnsQueries.getReturnableItems),
+        variables: {'orderId': orderId},
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      final message = _extractErrorMessage(result.exception!);
+      debugPrint('↩️ AccountRepo.getReturnableItems — error: $message');
+      throw AccountException(message);
+    }
+
+    final data = result.data?['returnableItems'] as List<dynamic>? ?? [];
+    final items = data
+        .map((e) => ReturnableItem.fromJson(e as Map<String, dynamic>))
+        .toList();
+
+    debugPrint('↩️ AccountRepo.getReturnableItems — ${items.length} items');
+    return items;
+  }
+
+  /// Fetch active return reasons for a resolution type
+  /// ("return" or "cancel_items"), sorted by position.
+  Future<List<ReturnReason>> getReturnReasons(String resolutionType) async {
+    debugPrint('↩️ AccountRepo.getReturnReasons (type=$resolutionType)');
+
+    final result = await client.query(
+      QueryOptions(
+        document: gql(ReturnsQueries.getReturnReasons),
+        variables: {'resolutionType': resolutionType},
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      final message = _extractErrorMessage(result.exception!);
+      debugPrint('↩️ AccountRepo.getReturnReasons — error: $message');
+      throw AccountException(message);
+    }
+
+    final data = result.data?['returnReasons'] as List<dynamic>? ?? [];
+    final reasons = data
+        .map((e) => ReturnReason.fromJson(e as Map<String, dynamic>))
+        .toList()
+      ..sort((a, b) => a.position.compareTo(b.position));
+
+    debugPrint('↩️ AccountRepo.getReturnReasons — ${reasons.length} reasons');
+    return reasons;
+  }
+
+  /// Fetch the conversation thread for a return, oldest first.
+  Future<List<ReturnMessage>> getReturnMessages(int returnId) async {
+    debugPrint('↩️ AccountRepo.getReturnMessages (returnId=$returnId)');
+
+    final result = await client.query(
+      QueryOptions(
+        document: gql(ReturnsQueries.getReturnMessages),
+        variables: {'returnId': returnId},
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      final message = _extractErrorMessage(result.exception!);
+      debugPrint('↩️ AccountRepo.getReturnMessages — error: $message');
+      throw AccountException(message);
+    }
+
+    final data = result.data?['customerReturnMessages'] as List<dynamic>? ?? [];
+    final messages = data
+        .map((e) => ReturnMessage.fromJson(e as Map<String, dynamic>))
+        .toList()
+      ..sort((a, b) => (a.createdAt ?? '').compareTo(b.createdAt ?? ''));
+
+    debugPrint('↩️ AccountRepo.getReturnMessages — ${messages.length} messages');
+    return messages;
+  }
+
+  /// Create a return request for one order item.
+  /// [resolutionType] is "return" or "cancel_items".
+  Future<CustomerReturn> createReturn({
+    required int orderId,
+    required int orderItemId,
+    required int rmaQty,
+    required String resolutionType,
+    required int rmaReasonId,
+    String? information,
+    String? packageCondition,
+  }) async {
+    debugPrint(
+      '↩️ AccountRepo.createReturn (orderId=$orderId, item=$orderItemId, qty=$rmaQty, type=$resolutionType)',
+    );
+
+    final input = <String, dynamic>{
+      'orderId': orderId,
+      'orderItemId': orderItemId,
+      'rmaQty': rmaQty,
+      'resolutionType': resolutionType,
+      'rmaReasonId': rmaReasonId,
+      'agreement': true,
+    };
+    if (information != null && information.isNotEmpty) {
+      input['information'] = information;
+    }
+    if (packageCondition != null && packageCondition.isNotEmpty) {
+      input['packageCondition'] = packageCondition;
+    }
+
+    final result = await client.mutate(
+      MutationOptions(
+        document: gql(ReturnsQueries.createCustomerReturn),
+        variables: {'input': input},
+      ),
+    );
+
+    if (result.hasException) {
+      final message = _extractErrorMessage(result.exception!);
+      debugPrint('↩️ AccountRepo.createReturn — error: $message');
+      throw AccountException(message);
+    }
+
+    final data = result.data?['createCustomerReturn']?['customerReturn'];
+    if (data == null) {
+      throw const AccountException('Failed to create return request');
+    }
+
+    debugPrint('↩️ AccountRepo.createReturn — success');
+    return CustomerReturn.fromJson(data as Map<String, dynamic>);
+  }
+
+  /// Cancel / close / reopen share the same IRI-id mutation shape.
+  Future<CustomerReturn> _mutateReturn({
+    required String document,
+    required String rootField,
+    required int returnId,
+    required String action,
+  }) async {
+    debugPrint('↩️ AccountRepo.$action (id=$returnId)');
+
+    final result = await client.mutate(
+      MutationOptions(
+        document: gql(document),
+        variables: {'id': '/api/shop/returns/$returnId'},
+      ),
+    );
+
+    if (result.hasException) {
+      final message = _extractErrorMessage(result.exception!);
+      debugPrint('↩️ AccountRepo.$action — error: $message');
+      throw AccountException(message);
+    }
+
+    final data = result.data?[rootField]?['customerReturn'];
+    if (data == null) {
+      throw AccountException('Failed to $action return');
+    }
+
+    debugPrint('↩️ AccountRepo.$action — success');
+    return CustomerReturn.fromJson(data as Map<String, dynamic>);
+  }
+
+  /// Cancel the customer's own return request.
+  Future<CustomerReturn> cancelReturn(int returnId) => _mutateReturn(
+    document: ReturnsQueries.cancelCustomerReturn,
+    rootField: 'cancelCustomerReturn',
+    returnId: returnId,
+    action: 'cancelReturn',
+  );
+
+  /// Mark a return as solved (requires `canClose`).
+  Future<CustomerReturn> closeReturn(int returnId) => _mutateReturn(
+    document: ReturnsQueries.closeCustomerReturn,
+    rootField: 'closeCustomerReturn',
+    returnId: returnId,
+    action: 'closeReturn',
+  );
+
+  /// Reopen a canceled/declined return (requires `canReopen`).
+  Future<CustomerReturn> reopenReturn(int returnId) => _mutateReturn(
+    document: ReturnsQueries.reopenCustomerReturn,
+    rootField: 'reopenCustomerReturn',
+    returnId: returnId,
+    action: 'reopenReturn',
+  );
+
+  /// Add a customer message to the return conversation thread.
+  Future<ReturnMessage> sendReturnMessage({
+    required int returnId,
+    required String message,
+  }) async {
+    debugPrint('↩️ AccountRepo.sendReturnMessage (returnId=$returnId)');
+
+    final result = await client.mutate(
+      MutationOptions(
+        document: gql(ReturnsQueries.createCustomerReturnMessage),
+        variables: {'returnId': returnId, 'message': message},
+      ),
+    );
+
+    if (result.hasException) {
+      final errorMessage = _extractErrorMessage(result.exception!);
+      debugPrint('↩️ AccountRepo.sendReturnMessage — error: $errorMessage');
+      throw AccountException(errorMessage);
+    }
+
+    final data =
+        result.data?['createCustomerReturnMessage']?['customerReturnMessage'];
+    if (data == null) {
+      throw const AccountException('Failed to send message');
+    }
+
+    debugPrint('↩️ AccountRepo.sendReturnMessage — success');
+    return ReturnMessage.fromJson(data as Map<String, dynamic>);
   }
 }
 
